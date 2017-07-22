@@ -5,14 +5,39 @@ from download import download
 import os
 import shutil
 import Tkinter
-
-
-
+from wxpy import *
+import PIL
 
 hostspath = "/Users/wp/Desktop/hosts/hosts"
 d_hosts = "/Users/wp/Desktop/hosts/hosts.part"
 to_path = "/private/etc/hosts"
 bak_path = "/private/etc/hosts.bak"
+
+'''
+def gethosts():
+    bot = Bot(console_qr = True)
+  
+
+    mpss = bot.mps().search(u'喜淘')
+    u = ensure_one(mpss)
+
+    u.send(u"富强")
+    
+
+    @bot.register(u,SHARING)
+    def just_print(msg):
+        # 打印消息
+        print msg.url
+
+
+
+
+    embed()
+    #bot.logout()
+'''
+
+
+
 #处理文件
 def delhosts():
     with open(hostspath, 'r') as f:
@@ -66,16 +91,19 @@ def download_hosts():
 
 
 if __name__ == '__main__':
-    print "1.处理原始hosts 2.自动下载更新"
+    print "1.获取微信hosts更新2.处理原始hosts 3.自动下载更新"
     
     choice = int(raw_input(">>>"))
-
     ok = True
+
     while (ok):
         if choice == 1:
-            delhosts()
+            gethosts()
             ok = False
         elif choice == 2:
+            delhosts()
+            ok = False
+        elif choice == 3:
             download_hosts()
             ok = False
         else:
