@@ -7,11 +7,21 @@ import shutil
 import Tkinter
 from wxpy import *
 import PIL
+import sys
 
-hostspath = "/Users/wp/Desktop/hosts/hosts"
-d_hosts = "/Users/wp/Desktop/hosts/hosts.part"
-to_path = "/private/etc/hosts"
-bak_path = "/private/etc/hosts.bak"
+if sys.platform[:3] == 'win':
+    hostspath = "C:\Users\w3260\Desktop\hosts"
+    d_hosts = "C:\Users\w3260\Desktop\hosts.part"
+    to_path = "C:\Windows\System32\drivers\etc\hosts"
+    bak_path = "C:\Windows\System32\drivers\etc\hosts.bak"
+else:
+    hostspath = "/Users/wp/Desktop/hosts/hosts"
+    d_hosts = "/Users/wp/Desktop/hosts/hosts.part"
+    to_path = "/private/etc/hosts"
+    bak_path = "/private/etc/hosts.bak"
+
+
+
 
 '''
 def gethosts():
@@ -88,23 +98,49 @@ def download_hosts():
     shutil.copyfile(hostspath, to_path)
     print "hosts更新完成..."
 
-
-
+def set_hosts():
+    try:
+        os.rename(to_path, bak_path)
+    except OSError as e:
+        pass
+    #移动
+    f = open(to_path,"w")
+    f.close()
+    shutil.copyfile(hostspath, to_path)
+    
+    print "hosts更新完成..."
+    
+def return_hosts():
+    try:
+        os.remove(to_path)
+    except OSError as e:
+        pass
+    os.rename(bak_path,to_path)
+    print "hosts恢复成功"
+    
+    
+    
+    
 if __name__ == '__main__':
-    print "1.获取微信hosts更新2.处理原始hosts 3.自动下载更新"
+    print "1.获取微信hosts更新\t2.处理原始hosts\t3.放置hosts\n4.自动下载更新\t5.恢复上版"
     
     choice = int(raw_input(">>>"))
     ok = True
-
     while (ok):
         if choice == 1:
-            gethosts()
+            print "功能暂未开放"
             ok = False
         elif choice == 2:
             delhosts()
             ok = False
         elif choice == 3:
+            set_hosts()
+            ok = False
+        elif choice == 4:
             download_hosts()
+            ok = False
+        elif choice == 5:
+            return_hosts()
             ok = False
         else:
             pass
