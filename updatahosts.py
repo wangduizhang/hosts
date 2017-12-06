@@ -5,9 +5,10 @@ from download import download
 import os
 import shutil
 import Tkinter
-from wxpy import *
+#from wxpy import *
 import PIL
 import sys
+
 
 if sys.platform[:3] == 'win':
     hostspath = "C:\Users\w3260\Desktop\hosts"
@@ -70,7 +71,7 @@ def delhosts():
             openwrite = True
             f2.write("# Tumblr End\n")
     f2.close()
-    print "处理完成"
+    print u"处理完成"
 
 
 
@@ -96,7 +97,7 @@ def download_hosts():
     f.close()
 
     shutil.copyfile(hostspath, to_path)
-    print "hosts更新完成..."
+    print u"hosts更新完成..."
 
 def set_hosts():
     try:
@@ -108,7 +109,7 @@ def set_hosts():
     f.close()
     shutil.copyfile(hostspath, to_path)
     
-    print "hosts更新完成..."
+    print u"hosts更新完成..."
     
 def return_hosts():
     try:
@@ -116,19 +117,19 @@ def return_hosts():
     except OSError as e:
         pass
     os.rename(bak_path,to_path)
-    print "hosts恢复成功"
+    print u"hosts恢复成功"
     
     
     
     
 if __name__ == '__main__':
-    print "1.获取微信hosts更新\t2.处理原始hosts\t3.放置hosts\n4.自动下载更新\t5.恢复上版"
+    print u"1.获取微信hosts更新\t2.处理原始hosts\t3.放置hosts\n4.自动下载更新\t5.恢复上版"
     
     choice = int(raw_input(">>>"))
     ok = True
     while (ok):
         if choice == 1:
-            print "功能暂未开放"
+            #print u"功能暂未开放"
             ok = False
         elif choice == 2:
             delhosts()
